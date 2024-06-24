@@ -17,7 +17,7 @@ public class StartMenu : MonoBehaviour
     void Start()
     {
         
-        bestScoreText.text = "Name: " + DataManager.Instance.bestPlayer + " :" + DataManager.Instance.highScore;
+        bestScoreText.text = "BestScore: " + DataManager.Instance.bestPlayer + " :" + DataManager.Instance.highScore;
         // Load the highest score when the game starts
     }
 

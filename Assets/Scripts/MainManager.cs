@@ -29,7 +29,7 @@ public class MainManager : MonoBehaviour
        
         if(DataManager.Instance.highScore != 0)
         {
-            bestScoredetails.text = "Name: " + DataManager.Instance.bestPlayer + " :" + DataManager.Instance.highScore;
+            bestScoredetails.text = "BestScore: " + DataManager.Instance.bestPlayer + " :" + DataManager.Instance.highScore;
         }
         else
         {
