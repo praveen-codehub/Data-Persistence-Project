@@ -9,8 +9,11 @@ public class MainManager : MonoBehaviour
     public Brick BrickPrefab;
     public int LineCount = 6;
     public Rigidbody Ball;
+    public string currentPlayer;
+    
 
     public Text ScoreText;
+    public Text bestScoredetails;
     public GameObject GameOverText;
     
     private bool m_Started = false;
@@ -18,10 +21,21 @@ public class MainManager : MonoBehaviour
     
     private bool m_GameOver = false;
 
-    
     // Start is called before the first frame update
     void Start()
     {
+        currentPlayer = PlayerPrefs.GetString("PlayerName", "DefaultName");
+        // 'DefaultName' is the value returned if the key 'PlayerName' doesn't exist.
+       
+        if(DataManager.Instance.highScore != 0)
+        {
+            bestScoredetails.text = "Name: " + DataManager.Instance.bestPlayer + " :" + DataManager.Instance.highScore;
+        }
+        else
+        {
+            bestScoredetails.text = " Game hasnt been played by anyone";
+        }
+       
         const float step = 0.6f;
         int perLine = Mathf.FloorToInt(4.0f / step);
         
@@ -58,8 +72,9 @@ public class MainManager : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+
             }
-        }
+        }   
     }
 
     void AddPoint(int point)
@@ -70,6 +85,12 @@ public class MainManager : MonoBehaviour
 
     public void GameOver()
     {
+        if(m_Points > DataManager.Instance.highScore)
+        {
+            DataManager.Instance.highScore = m_Points;
+            DataManager.Instance.bestPlayer = currentPlayer;
+            DataManager.Instance.HighScoreDetails();
+        }
         m_GameOver = true;
         GameOverText.SetActive(true);
     }
